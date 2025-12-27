@@ -1,0 +1,21 @@
+{
+  "files": [],
+  "references": [
+    { "path": "apps/cli" },
+    { "path": "packages/types" },
+    { "path": "packages/share" },
+    { "path": "packages/core" },
+    { "path": "packages/router" },
+    { "path": "packages/planner" },
+    { "path": "packages/context" },
+    { "path": "packages/tools" },
+    { "path": "packages/adapters" },
+    { "path": "packages/state-store" },
+    { "path": "packages/memory" },
+    { "path": "packages/rag" },
+    { "path": "packages/ui-bridge" },
+    { "path": "packages/eval" },
+    { "path": "packages/logging" },
+    { "path": "packages/perf" }
+  ]
+}

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+if [ -n "$SKIP_LINT" ]; then
+  echo "Skipping lint because SKIP_LINT is set."
+  exit 0
+fi
+
+echo "Running lint..."
+pnpm lint

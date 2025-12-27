@@ -1,0 +1,28 @@
+{
+  "name": "tansui-monorepo",
+  "version": "0.0.1",
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "lint": "pnpm -r run lint",
+    "test": "pnpm -r run test",
+    "test:watch": "vitest",
+    "build": "pnpm -r run build",
+    "publish:latest": "pnpm -r publish --tag latest",
+    "publish:canary": "node scripts/release-canary.cjs && pnpm -r publish --tag canary --no-git-checks"
+  },
+  "devDependencies": {
+    "@types/node": "25.0.3",
+    "@typescript-eslint/eslint-plugin": "8.50.1",
+    "@typescript-eslint/parser": "8.50.1",
+    "eslint": "9.39.2",
+    "typescript": "5.9.3",
+    "vitest": "4.0.16"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
