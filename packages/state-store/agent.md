@@ -1,33 +1,28 @@
 state-store Package Architecture
 
 Overview
-- Purpose: Persist session and task state for resume/replay.
+- Purpose: In-memory state store for checkpoints and events.
 - Responsibilities:
-  - Store checkpoints and append-only event logs.
-  - Load and reconstruct sessions.
+  - Persist checkpoints for a session.
+  - Append events for replay or inspection.
+  - Load a session's checkpoint and event list.
 
-Modules
-- store: StateStore interface with get/put/append.
-- memory-store: In-memory store for local dev.
-- file-store: File-based persistence for MVP.
-
-Key Interfaces
-- saveCheckpoint(sessionId, state)
-- appendEvent(sessionId, event)
-- loadSession(sessionId)
+Key Exports
+- InMemoryStateStore
 
 Data Flow
-- Core writes events and checkpoints; store replays on resume.
+- saveCheckpoint/appendEvent -> Map storage -> loadSession.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Append-only event log for audit and recovery.
+- In-memory only; storage is append-only per session.
+- Empty sessions return empty event arrays.
 
 Testing Notes
-- Round-trip persistence tests.
+- Unit tests cover checkpoint and event persistence.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

@@ -1,33 +1,26 @@
 perf Package Architecture
 
 Overview
-- Purpose: Performance metrics and profiling.
+- Purpose: No-op metrics collector used by default plugins.
 - Responsibilities:
-  - Collect latency/throughput/error metrics.
-  - Export metrics to sinks.
+  - Provide a Metrics implementation that is safe in all environments.
+  - Return Span objects with an empty end() implementation.
 
-Modules
-- collector: MetricsCollector with timers and counters.
-- timer: Span timing and aggregation.
-- exporter: Export to logs or external systems.
-
-Key Interfaces
-- startSpan(name)
-- record(name, value)
-- inc(name)
+Key Exports
+- MetricsCollector
 
 Data Flow
-- Core/tools record metrics -> exporter.
+- Plugins call startSpan/count -> no-op implementations.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Low overhead by default; sampling supported.
+- Keep defaults lightweight; production builds can inject real metrics.
 
 Testing Notes
-- Counter and timer unit tests.
+- Unit tests assert that spans and counts are callable without errors.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

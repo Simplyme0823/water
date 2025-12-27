@@ -1,31 +1,27 @@
 router Package Architecture
 
 Overview
-- Purpose: Route tasks to skills, planners, and tool policies.
+- Purpose: Provide a routing decision for planner selection.
 - Responsibilities:
-  - Classify tasks and choose skill/planner.
-  - Apply routing rules and overrides.
+  - Return a RouteDecision with the chosen planner name.
+  - Keep routing deterministic by default.
 
-Modules
-- rule-router: Static routing via rules and tags.
-- model-router: Model-assisted routing when enabled.
-- hybrid-router: Rules first, model fallback.
-
-Key Interfaces
-- Router.route(task) -> RouteDecision
+Key Exports
+- DefaultRouter
 
 Data Flow
-- Input task -> features -> route decision -> core.
+- Input -> DefaultRouter.route() -> RouteDecision.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Keep routing deterministic when possible.
+- DefaultRouter uses a constructor argument to set the planner name.
+- No model-based routing is implemented yet.
 
 Testing Notes
-- Rule coverage tests for routing decisions.
+- Unit tests cover the default planner and override behavior.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

@@ -1,34 +1,27 @@
 memory Package Architecture
 
 Overview
-- Purpose: Short and long-term memory management.
+- Purpose: In-memory memory store implementation.
 - Responsibilities:
-  - Store short-term conversation window.
-  - Persist long-term profile and facts.
-  - Support vector and graph retrieval.
+  - Store short-term session memory as an ordered list.
+  - Store long-term session memory as key/value pairs.
 
-Modules
-- short-term: Recent conversation buffer with summarization.
-- long-term: Structured profile and facts.
-- vector: Vector memory store interface.
-- graph: Graph memory store interface.
-- hybrid: Hybrid retrieval across stores.
-
-Key Interfaces
-- Memory.get/put/search
+Key Exports
+- InMemoryMemoryStore
 
 Data Flow
-- Context builder reads memory; updates written after tasks.
+- addShortTerm/putLongTerm -> Map storage -> getShortTerm/getLongTerm.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Hybrid retrieval for recall + relation reasoning.
+- In-memory only; callers should inject persistent stores for production.
+- Return empty collections for unknown sessions.
 
 Testing Notes
-- Retrieval and merge tests across stores.
+- Unit tests verify short-term and long-term storage behavior.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

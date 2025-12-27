@@ -1,32 +1,26 @@
 logging Package Architecture
 
 Overview
-- Purpose: Structured logging and tracing.
+- Purpose: Console-based logger implementation.
 - Responsibilities:
-  - Emit structured logs with trace ids.
-  - Capture tool/LLM telemetry.
+  - Provide a Logger implementation for core plugins.
+  - Normalize missing fields to empty objects for consistent logging.
 
-Modules
-- logger: Logger interface with levels.
-- trace: Trace context propagation.
-- sinks: Console/file/remote sinks.
-
-Key Interfaces
-- log(level, msg, fields)
-- withTrace(ctx)
+Key Exports
+- createConsoleLogger()
 
 Data Flow
-- Core/tools emit logs -> sinks.
+- Plugins call logger.info/error/debug -> console methods.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Structured logs over free-form strings.
+- Expose debug via console.debug; info/error map to console.log/error.
 
 Testing Notes
-- Log formatting and trace propagation tests.
+- Unit tests verify console method usage.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

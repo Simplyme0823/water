@@ -1,32 +1,28 @@
 tools Package Architecture
 
 Overview
-- Purpose: Tool registry and execution framework.
+- Purpose: Tool registry and default execution runner.
 - Responsibilities:
-  - Register tools with schemas and policies.
-  - Execute tools and normalize results.
+  - Register tools by name and expose lookup/list operations.
+  - Execute ToolCall instances and return ToolResult values.
 
-Modules
-- registry: ToolRegistry with lookup and metadata.
-- runner: ToolRunner with retry/fallback.
-- policy: Permission and rate policy checks.
-- validation: Input validation and output shaping.
-
-Key Interfaces
-- Tool.execute(params, ctx) -> ToolResult
+Key Exports
+- ToolRegistry
+- DefaultToolRunner
 
 Data Flow
-- Core -> ToolRunner -> Adapter -> Result -> Core.
+- Core -> ToolRunner.run(call, ctx) -> ToolSpec.execute() -> ToolResult.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share, @tansui/adapters
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- All side effects go through tools.
+- Keep the runner minimal; callers handle retries and policy.
+- Missing tools return a non-throwing error ToolResult.
 
 Testing Notes
-- Registry and execution flow tests with mock adapters.
+- Unit tests cover registry behavior and tool execution paths.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

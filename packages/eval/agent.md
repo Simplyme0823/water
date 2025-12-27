@@ -1,31 +1,29 @@
 eval Package Architecture
 
 Overview
-- Purpose: Evaluation harness and regression testing.
+- Purpose: Minimal evaluation harness types and runner.
 - Responsibilities:
-  - Run golden test suites and score outputs.
-  - Report metrics for regressions.
+  - Define eval cases, suites, and reports.
+  - Provide a basic runner that summarizes suites.
 
-Modules
-- runner: EvalRunner executes suites.
-- suite: Regression suite definitions.
-- metrics: Scoring and aggregation.
-
-Key Interfaces
-- runSuite(suite) -> Report
+Key Exports
+- EvalCase
+- EvalSuite
+- EvalReport
+- EvalRunner
 
 Data Flow
-- Eval runner drives core and collects results.
+- EvalRunner.runSuite() -> EvalReport summary.
 
 Dependencies
-- Internal: @tansui/types, @tansui/core, @tansui/share
+- Internal: (none)
 - External: (none)
 
 Design Decisions
-- Small, stable suites per skill.
+- Keep the runner minimal and deterministic; scoring logic can be layered later.
 
 Testing Notes
-- Deterministic evaluation tests.
+- Unit tests verify report totals.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.
