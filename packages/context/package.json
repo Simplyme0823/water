@@ -1,0 +1,28 @@
+{
+  "name": "@tansui/context",
+  "version": "0.0.1-canary.20251227124612.g8e4lt",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "!dist/**/*.map"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tansui/types": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
