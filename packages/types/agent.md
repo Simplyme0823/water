@@ -1,32 +1,31 @@
 types Package Architecture
 
 Overview
-- Purpose: Shared type definitions used across all packages.
+- Purpose: Shared domain types and interfaces for all packages.
 - Responsibilities:
-  - Define core domain types (events, tools, memory, plans).
-  - Provide stable contracts for cross-package APIs.
+  - Define agent events, tools, planning, routing, context, and storage contracts.
+  - Keep API boundaries stable between packages.
 
-Modules
-- domain-types: AgentEvent, ToolSpec, ToolResult, MemoryRecord, Plan.
-- protocols: Event wire shapes and serialization-safe payloads.
-
-Key Interfaces
-- AgentEvent
-- ToolSpec<TInput, TOutput>
-- ToolResult
-- MemoryRecord
-- Plan
+Key Exports
+- AgentEvent, AgentEventType
+- ToolSpec, ToolCall, ToolResult, ToolRunner, ToolContext
+- Plan, PlanStep, Planner, PlannerState
+- RouteDecision, Router
+- ContextEnvelope, ContextBuilder
+- MemoryStore, StateStore
+- EvidenceItem, EvidencePack, RagClient
+- Logger, Metrics, Span, Id
 
 Data Flow
-- Pure type export only; no runtime flow.
+- No runtime data flow; types only.
 
 Dependencies
 - Internal: (none)
 - External: (none)
 
 Design Decisions
-- No runtime code; types only to keep dependencies minimal.
-- Prefer additive changes for compatibility.
+- Keep types serializable and minimal.
+- Prefer additive changes to preserve compatibility across packages.
 
 Testing Notes
 - Type-only validation via tsc; no runtime tests.

@@ -1,32 +1,28 @@
 adapters Package Architecture
 
 Overview
-- Purpose: External integration adapters (LLM, MCP, IO).
+- Purpose: Adapter interface definitions for external integrations.
 - Responsibilities:
-  - Provide thin wrappers over external services.
-  - Normalize inputs/outputs for tools.
+  - Define LLM, MCP, and IO adapter shapes.
+  - Keep integration surfaces small and promise-based.
 
-Modules
-- llm: LLM provider adapter interface.
-- mcp: MCP client adapter.
-- io: Filesystem/network adapter layer.
-
-Key Interfaces
-- LLMAdapter.call(prompt)
-- MCPClient.request(method, params)
+Key Exports
+- LlmAdapter
+- McpAdapter
+- IoAdapter
 
 Data Flow
-- Tools call adapters; adapters return normalized results.
+- No runtime flow; interfaces are implemented by downstream packages.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: (none)
 - External: (none)
 
 Design Decisions
-- Keep adapters minimal and swappable.
+- Keep adapter contracts minimal and transport-agnostic.
 
 Testing Notes
-- Mocked adapter tests; no live network.
+- Type-level tests verify interface shapes.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

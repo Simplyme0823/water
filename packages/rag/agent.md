@@ -1,32 +1,26 @@
 rag Package Architecture
 
 Overview
-- Purpose: Retrieval pipeline as a pluggable tool.
+- Purpose: RAG client entry point with an empty default implementation.
 - Responsibilities:
-  - Retrieve evidence from indexes.
-  - Rerank and compress evidence packs.
+  - Provide a no-op RagClient that returns no evidence.
+  - Act as a placeholder for future retrieval integrations.
 
-Modules
-- retriever: Query -> candidate retrieval.
-- reranker: Score and select evidence.
-- compressor: Compress evidence into bounded pack.
-- attribution: Track sources for audit.
-
-Key Interfaces
-- retrieve(request) -> EvidencePack
+Key Exports
+- EmptyRagClient
 
 Data Flow
-- Context builder or planner calls RAG tool; results feed context.
+- retrieve(query) -> EvidencePack with empty items.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share, @tansui/adapters
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- RAG is optional; query generation lives above this layer.
+- Null-object implementation avoids conditional checks in the core runtime.
 
 Testing Notes
-- Evidence packing and rerank tests.
+- Unit test verifies empty evidence output.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

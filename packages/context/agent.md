@@ -1,32 +1,28 @@
 context Package Architecture
 
 Overview
-- Purpose: Assemble model context with budgeting.
+- Purpose: Build the ContextEnvelope that feeds planning and LLM calls.
 - Responsibilities:
-  - Build prompt context from system, memory, skills, and evidence.
-  - Apply token budgets and summarization.
+  - Collect short-term and long-term memory.
+  - Optionally retrieve evidence via a RagClient.
+  - Attach system prompts and the current input.
 
-Modules
-- builder: ContextBuilder for assembling prompt payloads.
-- budget: Token budget allocation and trimming.
-- summarizer: Conversation and tool result summaries.
-- evidence: Evidence pack integration.
-
-Key Interfaces
-- buildContext(input, state) -> ContextEnvelope
+Key Exports
+- DefaultContextBuilder
 
 Data Flow
-- Memory + RAG + skills -> context -> planner/tool calls.
+- Input + sessionId -> memory + rag -> ContextEnvelope.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share, @tansui/memory, @tansui/rag
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Keep context builder deterministic and testable.
+- Long-term memory entries are flattened as "key: value" strings.
+- RAG is optional; missing clients simply return no evidence.
 
 Testing Notes
-- Budget trimming and context assembly tests.
+- Unit tests cover combined memory and RAG evidence output.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

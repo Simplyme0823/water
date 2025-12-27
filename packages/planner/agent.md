@@ -1,32 +1,27 @@
 planner Package Architecture
 
 Overview
-- Purpose: Generate and manage task plans.
+- Purpose: Produce a simple plan for the agent runtime.
 - Responsibilities:
-  - Create plan steps and update after observations.
-  - Support multiple planning strategies.
+  - Emit a single-step plan for the current input.
+  - Prefer the "respond" tool when it is available.
 
-Modules
-- react: Step-by-step action planning.
-- plan-execute: Plan first, then execute.
-- tree: Explore multiple branches when needed.
-
-Key Interfaces
-- Planner.plan(state) -> Plan
-- Planner.update(state, obs)
+Key Exports
+- SimplePlanner
 
 Data Flow
-- State -> planner -> plan -> core loop.
+- PlannerState -> SimplePlanner.plan() -> Plan with one step.
 
 Dependencies
 - Internal: @tansui/types, @tansui/share
 - External: (none)
 
 Design Decisions
-- Strategy is pluggable and selected by router.
+- If the "respond" tool exists, plan a tool step; otherwise emit a respond step.
+- Keep planning synchronous and deterministic for now.
 
 Testing Notes
-- Plan generation and update tests per strategy.
+- Unit tests cover tool and non-tool planning paths.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

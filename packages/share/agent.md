@@ -1,41 +1,31 @@
 share Package Architecture
 
 Overview
-- Purpose: Shared utility helpers used across packages.
+- Purpose: Shared utilities and OpenAI streaming helpers.
 - Responsibilities:
-  - Provide small, pure utilities (ids, time, error helpers).
-  - Keep helpers side-effect free and predictable.
+  - Generate ids and timestamps.
+  - Normalize errors for logging/reporting.
+  - Provide async helpers like sleep.
+  - Wrap OpenAI client creation and streaming chat helpers.
 
-Modules
-- id: Deterministic ID and trace id helpers.
-- time: Timestamps, durations, and clock abstraction.
-- errors: Normalize errors into structured objects.
-- async: Timeouts, retries, and concurrency helpers.
-- llm: OpenAI chat completion streaming helpers.
-
-Key Interfaces
-- createId()
-- now()
-- toErrorInfo(err)
-- withTimeout(promise)
-- streamOpenAIChatChunks()
-- streamOpenAIChatText()
-- openAIChatText()
+Key Exports
+- createId(), nowIso(), toErrorInfo(), sleep()
+- createOpenAIClient(), streamOpenAIChatChunks(), streamOpenAIChatText(), openAIChatText()
+- OpenAIChatRequest, OpenAIClientOptions, OpenAIChatStreamOptions
 
 Data Flow
-- Used by core, tools, logging, and perf for common helpers.
+- Core uses these helpers to build events and call LLM APIs.
 
 Dependencies
-- Internal: @tansui/types
+- Internal: (none)
 - External: openai
 
 Design Decisions
-- Avoid heavy dependencies; keep utils small.
-- Prefer pure functions over classes.
-- LLM helpers default to streaming responses.
+- Keep utilities small and side-effect free.
+- LLM helpers use streaming primitives and aggregate to text.
 
 Testing Notes
-- Unit tests for utility behavior and edge cases.
+- Unit test covers missing apiKey for OpenAI client creation.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.

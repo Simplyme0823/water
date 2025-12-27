@@ -1,32 +1,28 @@
 ui-bridge Package Architecture
 
 Overview
-- Purpose: Event protocol and transports for UI decoupling.
+- Purpose: Lightweight event bus for UI subscribers.
 - Responsibilities:
-  - Serialize events and stream to clients.
-  - Provide adapters for SSE/WS/IPC.
+  - Allow handlers to subscribe/unsubscribe to AgentEvent streams.
+  - Publish events to all active subscribers.
 
-Modules
-- protocol: Event schema and versioning.
-- serializer: JSON encoding and framing.
-- transports: SSE/WS/IPC adapters.
-
-Key Interfaces
-- publish(event)
-- subscribe(handler)
+Key Exports
+- EventBus
+- EventHandler
 
 Data Flow
-- Core emits events -> bridge -> UI clients.
+- publish(event) -> notify all subscribed handlers.
 
 Dependencies
-- Internal: @tansui/types, @tansui/share
+- Internal: @tansui/types
 - External: (none)
 
 Design Decisions
-- Transport-agnostic event stream.
+- In-memory, fire-and-forget pub/sub.
+- StateStore should be used for replay instead of the bus.
 
 Testing Notes
-- Protocol encoding tests; adapter mocks.
+- Unit tests cover subscribe/unsubscribe and publish behavior.
 
 Engineering Practices
 - See `../../engineering-practices.md` for project-wide best practices.
