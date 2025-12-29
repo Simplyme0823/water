@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Tansui Meals",
+    "slug": "tansui-meals",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": ["ios"],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
